@@ -4,21 +4,21 @@
     "description": "Your server description",
     "main": "src/index.js",
     "scripts": {
-      "start": "node src/index.js",
-      "dev": "nodemon src/index.js"
+        "start": "node src/index.js",
+        "dev": "nodemon src/index.js"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
-      "express": "^4.17.1",
-      "mysql2": "^2.3.0",
-      "body-parser": "^1.19.0",
-      "cors": "^2.8.5",
-      "stripe": "^8.199.0"
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "mysql2": "^2.3.0",
+        "stripe": "^8.199.0"
     },
     "devDependencies": {
-      "nodemon": "^2.0.7"
+        "nodemon": "^2.0.7"
     }
-  }
-  
+}
