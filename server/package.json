@@ -1,7 +1,6 @@
 {
-    "name": "your-server",
+    "name": "project-name",
     "version": "1.0.0",
-    "description": "Your server description",
     "main": "src/index.js",
     "scripts": {
         "start": "node src/index.js",
