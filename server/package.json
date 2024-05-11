@@ -1,0 +1,24 @@
+{
+    "name": "your-server",
+    "version": "1.0.0",
+    "description": "Your server description",
+    "main": "src/index.js",
+    "scripts": {
+      "start": "node src/index.js",
+      "dev": "nodemon src/index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "express": "^4.17.1",
+      "mysql2": "^2.3.0",
+      "body-parser": "^1.19.0",
+      "cors": "^2.8.5",
+      "stripe": "^8.199.0"
+    },
+    "devDependencies": {
+      "nodemon": "^2.0.7"
+    }
+  }
+  
