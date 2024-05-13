@@ -1,14 +1,15 @@
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../src/swagger.json');
 const placesRouter = require('./routes/places');
-const authRouter = require('./routes/auth'); 
+const authRouter = require('./routes/auth');
 const mysql = require('mysql2/promise');
 
 const app = express();
-
-app.use(express.json()); 
+app.use(cors());
+app.use(express.json());
 
 app.use(placesRouter);
 app.use('/auth', authRouter);
@@ -25,7 +26,7 @@ async function connectToDatabase() {
   try {
     const connection = await mysql.createConnection({
       host: 'localhost',
-      user: 'root', 
+      user: 'root',
       database: 'my_database',
       port: 3306
     });

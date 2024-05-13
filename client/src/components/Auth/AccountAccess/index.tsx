@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { SINGIN_ROUTE, SINGUP_ROUTE } from '../../../utils/const'
+import {registration, login} from '../../../http/user'
 
 export function AccountAccess() {
   const [email, setEmail] = useState('')
@@ -8,9 +9,19 @@ export function AccountAccess() {
   const location = useLocation()
   const isLogin = location.pathname === SINGIN_ROUTE
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log(email, password)
+
+    try {
+      let data
+      if (isLogin) {
+        data = await login(email, password)
+      } else {
+        data = await registration(email, password)
+      }
+    } catch (e) {
+      alert(e)
+    }
 
     setEmail('')
     setPassword('')
