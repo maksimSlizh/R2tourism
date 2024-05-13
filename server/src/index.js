@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
-const swagger = require('./swagger');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../src/swagger.json');
 const placesRouter = require('./routes/places');
 const authRouter = require('./routes/auth'); 
 const mysql = require('mysql2/promise');
@@ -12,7 +13,7 @@ app.use(express.json());
 app.use(placesRouter);
 app.use('/auth', authRouter);
 
-swagger(app);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use(express.static(path.join(__dirname, '../client')));
 
