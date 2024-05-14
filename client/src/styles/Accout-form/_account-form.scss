@@ -1,0 +1,26 @@
+.account-form {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 45%;
+  padding: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #e7e7e77e;
+
+  &__input {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    &:focus {
+      outline: none;
+      border: 1px solid #007bff;
+      box-shadow: 0 0 0 0.3rem rgba(0, 98, 202, 0.445);
+    }
+  }
+
+}

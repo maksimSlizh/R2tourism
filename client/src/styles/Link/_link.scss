@@ -1,0 +1,37 @@
+$color-link: #0068d7;
+
+.link {
+  text-decoration: none;
+  color: $color-link;
+  transition: all 0.3s ease;
+  position: relative;
+
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-image: linear-gradient(to right, rgba(0, 42, 255, 0), $color-link 50%);
+    transition: width 0.3s ease, background-color 0.3s ease;
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+
+  &:hover {
+    color: darken($color-link, 10%);
+  }
+
+  &:active {
+    color: darken($color-link, 20%);
+  }
+
+  &:focus {
+    outline: 1px solid $color-link;
+    color: darken($color-link, 20%);
+  }
+}

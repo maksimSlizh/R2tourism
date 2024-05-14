@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom"
-import { SINGIN_ROUTE } from "../../utils/const"
+import { SIGNIN_ROUTE } from "../../utils/const"
 
 export function Header() {
   return (
@@ -9,7 +9,7 @@ export function Header() {
         <NavLink className="header__link" to="/">Home</NavLink>
         <a className="header__link" href="#">About</a>
         <a className="header__link" href="#">Contact</a>
-        <NavLink className="header__link" to={SINGIN_ROUTE}>Login</NavLink>
+        <NavLink className="header__link" to={SIGNIN_ROUTE}>Login</NavLink>
       </nav>
     </div>
   )

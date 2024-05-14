@@ -1,0 +1,39 @@
+$primary: #0068d7;
+$secondary: #6c757d;
+$success: #28a745;
+$info: #17a2b8;
+$warning: #ffc107;
+$danger: #dc3545;
+$light: #f8f9fa;
+$dark: #343a40;
+$text-color-white: #fff;
+
+.button {
+  font-size: 1.2rem;
+  display: inline-block;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &-primary {
+    background-color: $primary;
+    color: $text-color-white;
+
+    &:hover {
+      background-color: darken($primary, 10%);
+    }
+
+    &:active {
+      background-color: darken($primary, 20%);
+    }
+
+    &:focus {
+      outline: none;
+      background-color: darken($primary, 20%);
+      box-shadow: 0 0 0 0.2rem rgba($primary, 0.5);
+    }
+  }
+}
