@@ -3,24 +3,9 @@ const express = require('express');
 const path = require('path');
 const swagger = require('./swagger');
 const placesRouter = require('./routes/places');
-const mysql = require('mysql');
 
 const app = express();
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'your_username',
-  password: 'your_password',
-  database: 'your_database'
-});
-
-connection.connect((err) => {
-  if (err) {
-    console.error('Ошибка подключения к базе данных MySQL:', err.message);
-  } else {
-    console.log('Успешное подключение к базе данных MySQL');
-  }
-});
 
 app.use(express.json());
 
