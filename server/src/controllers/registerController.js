@@ -7,14 +7,14 @@ exports.registerUser = async (req, res) => {
     try {
         const existingUser = await db.getUserByEmail(email);
         if (existingUser) {
-            return res.status(400).json({ message: 'Пользователь с этим email уже зарегистрирован' });
+            return res.status(400).json({ message: 'The user with this email has already been registered' });
         }
 
         await db.createUser({ username, email, password });
 
-        return res.status(201).json({ message: 'Пользователь успешно зарегистрирован' });
+        return res.status(201).json({ message: 'The user has been successfully registered' });
     } catch (error) {
-        console.error('Ошибка при регистрации пользователя:', error);
-        return res.status(500).json({ message: 'Ошибка при регистрации пользователя' });
+        console.error('Error during user registration:', error);
+        return res.status(500).json({ message: 'Error during user registration' });
     }
 };

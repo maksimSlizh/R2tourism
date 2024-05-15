@@ -5,13 +5,13 @@ exports.registerUser = async (req, res) => {
     try {
         const existingUser = await db.getUserByEmail(email);
         if (existingUser) {
-            return res.status(400).json({ message: 'Пользователь с этим email уже зарегистрирован' });
+            return res.status(400).json({ message: 'The user with this email has already been registered' });
         }
         await db.createUser({ username, email, password });
-        res.status(201).json({ message: 'Пользователь успешно зарегистрирован' });
+        res.status(201).json({ message: 'The user has been successfully registered' });
     } catch (error) {
-        console.error('Ошибка при регистрации пользователя:', error);
-        res.status(500).json({ message: 'Ошибка при регистрации пользователя' });
+        console.error('Error during user registration:', error);
+        res.status(500).json({ message: 'Error during user registration' });
     }
 };
 
@@ -20,12 +20,12 @@ exports.loginUser = async (req, res) => {
     try {
         const user = await db.getUserByEmail(email);
         if (!user || user.password !== password) {
-            return res.status(401).json({ message: 'Неверный email или пароль' });
+            return res.status(401).json({ message: 'Invalid email or password' });
         }
-        res.status(200).json({ message: 'Вход выполнен успешно', user });
+        res.status(200).json({ message: 'The login was completed successfully', user });
     } catch (error) {
-        console.error('Ошибка при входе пользователя:', error);
-        res.status(500).json({ message: 'Ошибка при входе пользователя' });
+        console.error('User login error:', error);
+        res.status(500).json({ message: 'User login error' });
     }
 };
 
@@ -34,11 +34,11 @@ exports.getUserProfile = async (req, res) => {
     try {
         const user = await db.getUserById(userId);
         if (!user) {
-            return res.status(404).json({ message: 'Пользователь не найден' });
+            return res.status(404).json({ message: 'The user was not found' });
         }
         res.status(200).json({ user });
     } catch (error) {
-        console.error('Ошибка при получении профиля пользователя:', error);
-        res.status(500).json({ message: 'Ошибка при получении профиля пользователя' });
+        console.error('Error when getting the user profile:', error);
+        res.status(500).json({ message: 'Error when getting the user profile' });
     }
 };
