@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { SIGNIN_ROUTE, SIGNUP_ROUTE, RECOVER_ROUTE } from '../../../utils/const'
 import { registration, login } from '../../../http/user'
 
+
 export function AccountAccess() {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
@@ -29,16 +30,16 @@ export function AccountAccess() {
       return
     }
 
-    // try {
-    //   let data
-    //   if (isLogin) {
-    //     data = await login(email, password)
-    //   } else {
-    //     data = await registration(email, password, username)
-    //   }
-    // } catch (e) {
-    //   alert('An error occurred: ' + e.message)
-    // }
+    try {
+      let data
+      if (isLogin) {
+        data = await login(email, password)
+      } else {
+        data = await registration(email, password, username)
+      }
+    } catch (e) {
+      alert('An error occurred: ' + e.message)
+    }
 
     console.log('Form submitted')
 
