@@ -1,4 +1,3 @@
-// Example
 // server/src/routes/places.js
 const express = require('express');
 const router = express.Router();
@@ -40,9 +39,8 @@ const router = express.Router();
  */
 router.get('/api/places', async (req, res) => {
   try {
-    // Ваш код для получения объектов размещения из базы данных
     const places = [{ id: '1', name: 'Hotel A', description: 'This is a hotel' }];
-    res.status(200).json({ data: places });
+    res.status(200).json(places);
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
@@ -90,7 +88,7 @@ router.get('/api/places/:id', async (req, res) => {
     if (!place) {
       res.status(404).json({ error: 'Place not found' });
     } else {
-      res.status(200).json({ data: place });
+      res.status(200).json(place);
     }
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });

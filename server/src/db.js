@@ -17,21 +17,31 @@ async function connectToDatabase() {
 }
 
 async function createUser(username, email, password) {
-  const connection = await connectToDatabase();
-  const [result] = await connection.execute(
-    'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
-    [username, email, password]
-  );
-  return result.insertId;
+  try {
+    const connection = await connectToDatabase();
+    const [result] = await connection.execute(
+      'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
+      [username, email, password]
+    );
+    return result.insertId;
+  } catch (error) {
+    console.error('Error creating user:', error);
+    throw error;
+  }
 }
 
 async function getUserByEmail(email) {
-  const connection = await connectToDatabase();
-  const [rows] = await connection.execute(
-    'SELECT * FROM users WHERE email = ?',
-    [email]
-  );
-  return rows[0];
+  try {
+    const connection = await connectToDatabase();
+    const [rows] = await connection.execute(
+      'SELECT * FROM users WHERE email = ?',
+      [email]
+    );
+    return rows[0];
+  } catch (error) {
+    console.error('Error getting user by email:', error);
+    throw error;
+  }
 }
 
 module.exports = {
