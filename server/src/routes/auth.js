@@ -1,7 +1,7 @@
 const express = require('express');
-const router = express.Router();
-const db = require('../db');
 const bcrypt = require('bcrypt');
+const db = require('../db');
+const router = express.Router();
 
 router.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
@@ -30,11 +30,7 @@ router.post('/login', async (req, res) => {
 
   try {
     const user = await db.getUserByEmail(email);
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid email or password' });
-    }
-    const passwordMatch = await bcrypt.compare(password, user.password);
-    if (!passwordMatch) {
+    if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
     res.status(200).json({ message: 'Login successful', user });

@@ -1,27 +1,31 @@
 const mysql = require('mysql2/promise');
 const bcrypt = require('bcrypt');
 
+let connection;
+
 async function connectToDatabase() {
-  try {
-    const connection = await mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      database: 'my_database',
-      port: 3306
-    });
-    console.log('Connected to MySQL database');
-    return connection;
-  } catch (error) {
-    console.error('Error connecting to database:', error);
-    throw error;
+  if (!connection) {
+    try {
+      connection = await mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        database: 'my_database',
+        port: 3306
+      });
+      console.log('Connected to MySQL database');
+    } catch (error) {
+      console.error('Error connecting to database:', error);
+      throw error;
+    }
   }
+  return connection;
 }
 
 async function createUser(username, email, password) {
   try {
-    const connection = await connectToDatabase();
+    const conn = await connectToDatabase();
     const hashedPassword = await bcrypt.hash(password, 10);
-    const [result] = await connection.execute(
+    const [result] = await conn.execute(
       'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
       [username, email, hashedPassword]
     );
@@ -34,8 +38,8 @@ async function createUser(username, email, password) {
 
 async function getUserByEmail(email) {
   try {
-    const connection = await connectToDatabase();
-    const [rows] = await connection.execute(
+    const conn = await connectToDatabase();
+    const [rows] = await conn.execute(
       'SELECT * FROM users WHERE email = ?',
       [email]
     );
@@ -48,5 +52,6 @@ async function getUserByEmail(email) {
 
 module.exports = {
   createUser,
-  getUserByEmail
+  getUserByEmail,
+  connectToDatabase
 };
