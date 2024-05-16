@@ -1,80 +1,95 @@
 {
-  "openapi": "3.0.0",
+  "swagger": "2.0",
   "info": {
-    "title": "R2Tourism",
-    "description": "Api",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "title": "API Documentation",
+    "description": "API Documentation for the project"
   },
-  "servers": [
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [
     {
-      "url": "http://localhost:3000"
+      "name": "Auth",
+      "description": "Authentication endpoints"
+    },
+    {
+      "name": "Places",
+      "description": "Places endpoints"
     }
   ],
   "paths": {
-    "/auth/login": {
+    "/api/auth/register": {
       "post": {
-        "summary": "Login user",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string",
-                    "format": "email"
-                  },
-                  "password": {
-                    "type": "string"
-                  }
-                },
-                "required": ["email", "password"]
-              }
+        "tags": ["Auth"],
+        "summary": "Register a new user",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
             }
           }
-        },
+        ],
+        "responses": {
+          "201": {
+            "description": "User registered successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Login a user",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "User logged in successfully"
+            "description": "Login successful"
           },
           "401": {
             "description": "Invalid email or password"
           }
         }
       }
-    },
-    "/auth/register": {
-      "post": {
-        "summary": "Register new user",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "username": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string",
-                    "format": "email"
-                  },
-                  "password": {
-                    "type": "string"
-                  }
-                },
-                "required": ["username", "email", "password"]
-              }
-            }
-          }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
         },
-        "responses": {
-          "201": {
-            "description": "User registered successfully"
-          },
-          "500": {
-            "description": "Failed to register user"
-          }
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Login": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
         }
       }
     }
