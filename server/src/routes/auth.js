@@ -3,8 +3,14 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { createUser, getUserByEmail } = require('../db');
 const router = express.Router();
+const verifyToken = require('../middleware/verifyToken');
 
-const JWT_SECRET = 'your_jwt_secret';
+
+const JWT_SECRET = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyMzQ1Njc4OTAiLCJlbWFpbCI6ImVtYWlsQGV4YW1wbGUuY29tIiwiaWF0IjoxNTE2MjM5MDIyfQ.ayTU6beXnqkUx1E6A9n5tI1YKrcylmGb-FU1Rc4snao';
+
+router.get('/protected-route', verifyToken, (req, res) => {
+  res.json({ message: 'You have access to this protected route' });
+});
 
 router.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
