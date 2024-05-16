@@ -1,10 +1,9 @@
 const express = require('express');
-const authRouter = require('./auth');
-const placesRouter = require('./places');
-
 const router = express.Router();
+const authenticateToken = require('../middleware/auth');
 
-router.use('/auth', authRouter);
-router.use('/places', placesRouter);
+router.use('/protected', authenticateToken, (req, res) => {
+  res.json({ message: 'This is a protected route', user: req.user });
+});
 
 module.exports = router;

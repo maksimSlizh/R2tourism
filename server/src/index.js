@@ -4,8 +4,9 @@ const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 const apiRouter = require('./routes/index');
+const authRouter = require('./routes/auth');
 const errorHandler = require('./middleware/errorHandler');
-const { connectToDatabase } = require('./db');
+const { initializeDatabase, connectToDatabase } = require('./db');
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Routes
 app.use('/api', apiRouter);
+app.use('/auth', authRouter);
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '../client')));
@@ -25,9 +27,10 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../../client/index.html'));
 });
 
-// Start server after successful DB connection
+// Initialize database and start server
 connectToDatabase()
-  .then(() => {
+  .then(async () => {
+    await initializeDatabase(); // Initialize the database schema
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
