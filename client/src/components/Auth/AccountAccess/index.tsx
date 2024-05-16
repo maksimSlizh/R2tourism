@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { SIGNIN_ROUTE, SIGNUP_ROUTE, RECOVER_ROUTE } from '../../../utils/const'
 import { registration, login } from '../../../http/user'
+import { validateInputString } from '../../../helpers/validateInputString'
 
 
 export function AccountAccess() {
@@ -9,22 +10,27 @@ export function AccountAccess() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [error, setError] = useState('')
+  const [confirmError, setConfirmError] = useState('')
   const location = useLocation()
   const isLogin = location.pathname === SIGNIN_ROUTE
   const isRegistration = location.pathname === SIGNUP_ROUTE
 
-  const validatePassword = () => {
+  const validatePassword = (): boolean => {
     if (isRegistration && password !== confirmPassword) {
-      setError('passwords do not match')
+      setConfirmError('passwords do not match')
       return false
     }
-    setError('')
+    setConfirmError('')
     return true
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    if (!validateInputString(username) || !validateInputString(email) || !validateInputString(password) || !validateInputString(confirmPassword)) {
+      alert('Invalid input, please check how you entered your data')
+      return
+    }
 
     if (isRegistration && !validatePassword()) {
       return
@@ -94,7 +100,7 @@ export function AccountAccess() {
             id='repeatPassword'
             className="account-form__input"
             placeholder='repeat password...' />
-          {error && <div className="alert alert-danger">{error}</div>}
+          {confirmError && <div className="alert alert-danger">{confirmError}</div>}
         </div>
       }
       {isLogin ?

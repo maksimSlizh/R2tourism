@@ -1,10 +1,15 @@
 import { useState } from 'react'
+import { validateInputString } from '../../../helpers/validateInputString'
 
 export function AccountRecovery() {
   const [email, setEmail] = useState('')
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if(!validateInputString(email)){
+      alert('Invalid input, please check how you entered your data')
+      return
+    }
 
     console.log(email)
 
