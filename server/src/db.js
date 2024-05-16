@@ -1,4 +1,5 @@
 const mysql = require('mysql2/promise');
+const bcrypt = require('bcrypt');
 
 async function connectToDatabase() {
   try {
@@ -19,9 +20,10 @@ async function connectToDatabase() {
 async function createUser(username, email, password) {
   try {
     const connection = await connectToDatabase();
+    const hashedPassword = await bcrypt.hash(password, 10);
     const [result] = await connection.execute(
       'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
-      [username, email, password]
+      [username, email, hashedPassword]
     );
     return result.insertId;
   } catch (error) {

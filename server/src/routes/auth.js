@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
+const bcrypt = require('bcrypt');
 
-router.post('/register', async (req, res, next) => {
+router.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
     return res.status(400).json({ message: 'All fields are required' });
@@ -16,11 +17,12 @@ router.post('/register', async (req, res, next) => {
     const userId = await db.createUser(username, email, password);
     res.status(201).json({ message: 'User registered successfully', userId });
   } catch (error) {
-    next(error); 
+    console.error('Error registering user:', error);
+    res.status(500).json({ message: 'Failed to register user' });
   }
 });
 
-router.post('/login', async (req, res, next) => {
+router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return res.status(400).json({ message: 'Email and password are required' });
@@ -31,15 +33,14 @@ router.post('/login', async (req, res, next) => {
     if (!user) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
-    
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
-
     res.status(200).json({ message: 'Login successful', user });
   } catch (error) {
-    next(error); 
+    console.error('Error logging in:', error);
+    res.status(500).json({ message: 'Failed to login' });
   }
 });
 
