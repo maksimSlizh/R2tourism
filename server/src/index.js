@@ -5,11 +5,13 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 const placesRouter = require('./routes/places');
 const authRouter = require('./routes/auth');
+const errorHandler = require('./middleware/errorHandler');
 const mysql = require('mysql2/promise');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(errorHandler);
 
 app.use(placesRouter);
 app.use('/auth', authRouter);
