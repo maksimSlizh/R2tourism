@@ -4,6 +4,7 @@ const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 const placesRouter = require('./routes/places');
+const apiRouter = require('./routes/index')
 const authRouter = require('./routes/auth');
 const errorHandler = require('./middleware/errorHandler');
 const mysql = require('mysql2/promise');
