@@ -38,10 +38,8 @@ export function AccountAccess() {
         data = await registration(email, password, username)
       }
     } catch (e) {
-      alert('An error occurred: ' + e.message)
+      alert('An error occurred: ' + e)
     }
-
-    console.log('Form submitted')
 
     setUsername('')
     setEmail('')
