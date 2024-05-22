@@ -1,7 +1,7 @@
-export function Main () {
+export function Main() {
   return (
     <div>
-      Main
+      <h1>Main</h1>
     </div>
   )
 }
